@@ -1,4 +1,3 @@
-*/
 const path1 = "serverConfig";
 const path2 = "wareBusiness";
 const path3 = "basicConfig";
