@@ -1,6 +1,3 @@
-/*
-个人备份 转自https://raw.githubusercontent.com/githubdulong/Script/master/jd_price.js
-
 */
 const path1 = "serverConfig";
 const path2 = "wareBusiness";
