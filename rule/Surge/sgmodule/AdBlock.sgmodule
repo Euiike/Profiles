@@ -1,0 +1,118 @@
+#!name=去开屏广告
+#!desc=去开屏广告合集
+#!system=ios
+
+[General]
+force-http-engine-hosts = %APPEND% t7z.cupid.iqiyi.com,kjp.cupid.iqiyi.com
+
+[URL Rewrite]
+# > 携程
+^https?://m\.ctrip\.com/restapi/[\w/]+tripAds _ reject
+^https:\/\/ma-adx\.ctrip\.com\/_ma\.gif _ reject
+
+[Rule]
+# > 微信公众号
+URL-REGEX,^https?:\/\/mp\.weixin\.qq\.com\/mp\/getappmsgad\?,REJECT
+
+# > 携程
+//URL-REGEX,^https?:\/\/socketio\.ctrip\.com\/api,REJECT
+//URL-REGEX,^https?:\/\/ma-adx\.ctrip\.com\/_ma\.gif,REJECT
+//URL-REGEX,^https?:\/\/mbd\.baidu\.com\/newspage\/api\/getmobads\?page\=landingshare,REJECT
+
+# > 百度网盘
+DOMAIN-SUFFIX,ug.baidu.com,REJECT
+URL-REGEX,^https?:\/\/mbd\.baidu\.com\/tcbox,REJECT
+URL-REGEX,^https?:\/\/pan\.baidu\.com\/(act\/v\d\/(bchannel|welfare)\/list|rest\/2\.0\/pcs\/ad|act\/api\/activityentry)$,REJECT
+URL-REGEX,^https?:\/\/pan\.baidu\.com\/(act\/(api\/activityentry|v2\/(bchannel|welfare)\/list)|rest\/2\.0\/pcs\/ad),REJECT
+
+# > 得物
+URL-REGEX,^https?:\/\/app\.dewu\.com\/api\/v1\/app\/advertisement\/,REJECT
+
+# > 菜鸟
+URL-REGEX,^https?:\/\/cn-acs\.m\.cainiao\.com\/gw\/mtop\.cainiao\.guoguo\.nbnetflow\.ads\.(show|mshow)\.cn\/,REJECT
+
+# > 淘票票
+URL-REGEX,^https?:\/\/acs\.m\.taobao\.com\/gw\/mtop.film.mtopadvertiseapi.queryadvertise\/5.0.*,REJECT
+
+# > 飞猪
+URL-REGEX,^https?:\/\/acs\.m\.taobao\.com\/gw\/mtop\.fliggy\.crm\.screen\.allresource,REJECT
+
+# > 大麦
+URL-REGEX,^https?:\/\/acs\.m\.taobao\.com\/gw\/mtop\.damai\.wireless\.home\.welcome,REJECT
+
+# > 猫眼
+URL-REGEX,^https?:\/\/p0\.pipi\.cn\/adAdmin\/\w+.jpg\?,REJECT
+
+# > 豆瓣
+URL-REGEX,^https?:\/\/api\.douban\.com\/(v2\/app_ads\/splash|b.*\/common_ads\?.*)$,REJECT
+
+# > 山姆
+URL-REGEX,^https?:\/\/api-sams\.walmartmobile\.cn\/api\/v1\/sams\/sams-user\/(window\/getGoUpPlus|screen_promotion\/get),REJECT
+
+# > 云闪付
+URL-REGEX,^https?:\/\/wallet\.95516\.com\/s\/wl\/icon\/long,REJECT
+
+# > 美团
+URL-REGEX,^https?:\/\/flowplus\.meituan\.net\/v1\/mss_\w+\/linglong\/\d+\.jpg$,REJECT
+URL-REGEX,^https?:\/\/s3plus\.meituan\.net\/v1\/mss_\w+\/(brandcpt-vedio|waimai-alita)\/\w+\.zip$,REJECT
+
+# > 拼多多
+URL-REGEX,^https?:\/\/api\.(pinduoduo|yangkeduo)\.com\/api\/cappuccino\/splash,REJECT
+
+# > 屏蔽知乎网页版强制登陆弹窗
+URL-REGEX,^https?:\/\/static\.zhihu\.com\/[^\/]+\/(main|column)\.signflow\.[^.]+.js,REJECT
+
+# > 网易云 by ddgksf2013
+URL-REGEX,^https?:\/\/interface(\d)?\.music\.163\.com\/w?e?api\/(lbs\/gpsStatus\/upload|homepage\/daily\/song\/elf\/notice|ad\/|sp\/flow|ios\/upgrade|link\/position\/show\/resource|resource-exposure\/config|search\/specialkeyword|link\/scene\/show\/resource|search\/default|comment\/feed\/inserted|v1\/content\/exposure\/comment|search\/rcmd\/keyword|search\/default\/keyword|comment\/hotcomment\/collect|middle\/clientcfg\/config|resource-exposure\/activity\/config|vipcenter\/tspopup\/get|search\/chart),REJECT
+
+# > 酷安 by ddgksf2013
+URL-REGEX,^https?:\/\/api\.coolapk\.com\/v6\/search\?.*type=hotSearch,REJECT
+
+# > Keep by by ddgksf2013
+URL-REGEX,^https?:\/\/api\.gotokeep\.com\/(kprime\/v\d\/popups\/primeGuide|cauchy\/growth\/init|search\/v\d\/(default\/keyword\/list|hotword\/list|hotCourse\/list)|op-engine-webapp\/v\d\/ad|ads\/v\d\/ads\/preload|training\/box\/config|anno\/v\d\/upgrade\/check)$,REJECT
+// 开屏
+URL-REGEX,^https?:\/\/kad\.gotokeep\.com\/op-engine-webapp\/v\d\/ad,REJECT
+
+[Script]
+# > 微信公众号去广告 by NobyDa
+WeChat.js = type=http-response,requires-body=1,max-size=0,pattern=^https?:\/\/mp\.weixin\.qq\.com\/mp\/getappmsgad\?,script-path=https://raw.githubusercontent.com/NobyDa/Script/master/QuantumultX/File/Wechat.js
+
+# > 小红书去广告 by chouchoui
+xiaohongshu.js = type=http-response,pattern=^https?:\/\/edith\.xiaohongshu\.com\/api\/sns\/(v2\/system_service\/splash_config|v6\/homefeed\?)$,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/chouchoui/QuanX/master/Scripts/xiaohongshu/xiaohongshu.ad.js,script-update-interval=0
+// xiaohongshu_splash.js = type=http-response,pattern=^https?:\/\/edith\.xiaohongshu\.com\/api\/sns\/v2\/system_service\/splash_config,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/chouchoui/QuanX/master/Scripts/xiaohongshu/xiaohongshu.ad.js,script-update-interval=0
+// xiaohongshu_timeline.js = type=http-response,pattern=^https:\/\/edith\.xiaohongshu\.com\/api\/sns\/v6\/homefeed\?,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/chouchoui/QuanX/master/Scripts/xiaohongshu/xiaohongshu.ad.js,script-update-interval=0
+
+# > 京东去开屏广告 by blackmatrix7
+jd_startup.js = type=http-response,requires-body=1,max-size=0,pattern=^https?:\/\/api\.m\.jd\.com\/client\.action\?functionId=start,script-path=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/script/startup/startup.js
+
+# > 美团外卖去开屏广告 by blackmatrix7
+waimai_startup.js = type=http-response,requires-body=1,max-size=0,pattern=^https?:\/\/wmapi\.meituan\.com\/api\/v\d+\/loadInfo?,script-path=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/script/startup/startup.js
+
+# > Fa米家去开屏广告 by blackmatrix7
+famijia.js = type=http-response,requires-body=1,max-size=0,pattern=^https?:\/\/fmapp\.chinafamilymart\.com\.cn\/api\/app\/market\/start\/ad,script-path=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/script/famijia/famijia_checkin.js
+
+# > 爱奇艺去开屏广告 by blackmatrix7
+iqiyi_startup.js = type=http-response,requires-body=1,max-size=0,pattern=^https?:\/\/(t7z|kjp)\.cupid\.iqiyi\.com\/mixer\?,script-path=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/script/startup/startup.js
+ 
+# > 百度地图去广告 by app2smile
+baidumap_proto.js = type=http-response,pattern=^https:\/\/newclient\.map\.baidu\.com\/client\/phpui2\/\?qt=ads,requires-body=1,binary-body-mode=1,max-size=0,script-path=https://raw.githubusercontent.com/app2smile/rules/master/js/baidumap.js
+
+# > 酷安去广告 by by ddgksf2013
+coolapk.js = type=http-response,pattern=^https?:\/\/api\.coolapk\.com\/v6\/(dataList|main\/indexV8|feed\/(replyList|detail)),requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/ddgksf2013/Scripts/master/coolapk.js
+
+# > Keep 去广告 by by ddgksf2013
+// 修改底栏
+// Keep.js = type=http-response,pattern=^https?:\/\/api\.gotokeep\.com\/(athena\/v\d\/people\/my|config\/v\d\/basic|homepage\/v\d\/tab|nuocha\/course\/v2\/\w+\/preview|sportpage\/sport\/v3\/mysport)$,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/ddgksf2013/Scripts/master/keepStyle.js
+// 保留底栏
+Keep.js = type=http-response,pattern=^https?:\/\/api\.gotokeep\.com\/(athena\/v\d\/people\/my|homepage\/v\d\/tab|nuocha\/course\/v2\/\w+\/preview|sportpage\/sport\/v3\/mysport)$,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/ddgksf2013/Scripts/master/keepStyle.js
+
+# > 避免 Google 搜索可能出现的人机验证 by NobyDa
+Google_CAPTCHA.js = type=http-response,pattern=^https:\/\/www\.google\.com(\.[a-z]+|)\/search\?(client=[a-z-]+&|)q=,requires-body=1,debug=0,script-path=https://raw.githubusercontent.com/NobyDa/Script/master/Surge/JS/Google_CAPTCHA.js,max-size=0,timeout=10,ability=http-client-policy,argument=^(🇸🇬|🇭🇰)\s.*\d+$
+
+[MITM]
+hostname = %INSERT% m.ctrip.com,socketio.ctrip.com,ma-adx.ctrip.com,mbd.baidu.com,pan.baidu.com,app.dewu.com,*acs.m.cainiao.com,p0.pipi.cn,api.douban.com,api-sams.walmartmobile.cn,wallet.95516.com,flowplus.meituan.net,s3plus.meituan.net,api.pinduoduo.com,api.yangkeduo.com,static.zhihu.com,interface*.music.163.com,api.coolapk.com,api.gotokeep.com,kad.gotokeep.com,mp.weixin.qq.com,edith.xiaohongshu.com,api.m.jd.com,wmapi.meituan.com,fmapp.chinafamilymart.com.cn,t7z.cupid.iqiyi.com,kjp.cupid.iqiyi.com,newclient.map.baidu.com,,www.google.com*
+
+[Map Local]
+^https?:\/\/m\.ctrip\.com\/restapi\/soa2\/[0-9]{5}\/json\/getTimeZoneServerIpList\?__gw_os=IOS data="https://raw.githubusercontent.com/deezertidal/Surge_Module/master/files/reject-200.txt"
+^https?:\/\/m\.ctrip\.com\/restapi\/soa2\/13916\/json\/tripAds data="https://raw.githubusercontent.com/deezertidal/Surge_Module/master/files/reject-200.txt"
+^https:\/\/m\.ctrip\.com\/restapi\/soa2\/13916\/scjson\/tripAds data="https://raw.githubusercontent.com/deezertidal/Surge_Module/master/files/reject-dict.json"
