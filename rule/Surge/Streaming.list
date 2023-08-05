@@ -221,13 +221,6 @@ DOMAIN-SUFFIX,sbsod.com
 DOMAIN-SUFFIX,sbs.com.au
 // DOMAIN,sbsvoddai-vh.akamaihd.net
 
-# > Spotify
-USER-AGENT,*Spotify*
-DOMAIN-SUFFIX,pscdn.co
-DOMAIN-SUFFIX,scdn.co
-DOMAIN-SUFFIX,spoti.fi
-DOMAIN-SUFFIX,spotify.com
-
 # > Stan
 DOMAIN-SUFFIX,stan.com.au
 DOMAIN,aws.stan.video
